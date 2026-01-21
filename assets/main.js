@@ -68,7 +68,7 @@ const CONTENT = {
     "art-kicker": "Çizimler",
     "art-title": "Seçilmiş görseller",
     "art-subtitle":
-      "Dijital ve geleneksel tekniklerle yaptığım bazı çalışmalar. Daha fazlası ArtStation’da.",
+      "Dijital ve geleneksel tekniklerle yaptığım bazı çalışmalar.",
     "art-item1-title": "Art 1",
     "art-item1-meta": "pastel · renkli",
     "art-item1-desc":

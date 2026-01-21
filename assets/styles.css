@@ -494,6 +494,45 @@ footer {
     text-underline-offset: 3px;
 }
 
+.footer-icon {
+    display: inline-block;
+    min-width: 14px;
+    margin-right: 4px;
+    font-size: 11px;
+    opacity: 0.8;
+}
+
+.footer-primary {
+    margin-bottom: 4px;
+}
+
+.footer-secondary {
+    opacity: 0.9;
+    font-size: 11px;
+}
+
+.social-strip {
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.social-strip-label {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--muted);
+}
+
+.social-strip-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.social-strip-links a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
 /* Responsive */
 
 @media (max-width: 900px) {
