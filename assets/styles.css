@@ -187,7 +187,7 @@ header {
 .hero-text {
     font-size: 16px;
     max-width: 480px;
-    color: #222;
+    color: rgba(15, 23, 42, 0.9);
     margin-bottom: 24px;
 }
 
@@ -225,12 +225,12 @@ header {
 }
 
 .btn-secondary:hover {
-    background: rgba(75, 43, 24, 0.05);
-    /* accent'in çok hafif bir tonu */
-    border-color: #d0bba6;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(32, 23, 16, 0.12);
+  background: var(--accent-soft);
+  border-color: #c7d2fe;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.16);
 }
+
 
 .hero-side-card {
     border-radius: var(--radius);
@@ -360,7 +360,7 @@ header {
 
 .about-home-body {
     font-size: 14px;
-    color: #222;
+    color: rgba(15, 23, 42, 0.9);
     max-width: 640px;
     margin-bottom: 14px;
 }
@@ -443,7 +443,7 @@ header {
 
 .item-desc {
     font-size: 14px;
-    color: #222;
+    color: rgba(15, 23, 42, 0.9);
 }
 
 .item-link {
@@ -571,14 +571,11 @@ footer {
         grid-template-columns: 1fr;
     }
 
-        .hero-side-card {
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            background: linear-gradient(135deg, #fffaf2 0%, #f2e3d2 100%);
-            padding: 18px 18px 16px;
-            font-size: 13px;
-            align-self: flex-start;
-        }
+        @media (max-width: 900px) {
+  .hero-side-card {
+    background: var(--bg-alt);
+  }
+}
 
     .sections-grid {
         grid-template-columns: 1fr;

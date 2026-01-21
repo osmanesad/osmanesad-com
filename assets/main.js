@@ -8,6 +8,17 @@ const CONTENT = {
     "nav-art": "Çizimler",
     "nav-code": "Kod",
     "nav-about": "Hakkında",
+    "nav-contact": "İletişim",
+
+    "contact-kicker": "İletişim",
+"contact-title": "Bana ulaş",
+"contact-subtitle": "İş, işbirliği veya sadece merhaba demek için yazabilirsin.",
+"contact-label-name": "İsim",
+"contact-label-email": "E-posta",
+"contact-label-message": "Mesaj",
+"contact-send": "Gönder →",
+
+    
 
     // Hero
     "hero-title": "Osman Esad",
@@ -128,6 +139,16 @@ const CONTENT = {
     "nav-art": "Art",
     "nav-code": "Code",
     "nav-about": "About",
+    "nav-contact": "Contact",
+
+    "contact-kicker": "Contact",
+"contact-title": "Get in touch",
+"contact-subtitle": "For work, collaboration, or just to say hi.",
+"contact-label-name": "Name",
+"contact-label-email": "Email",
+"contact-label-message": "Message",
+"contact-send": "Send →",
+
 
     // Hero
     "hero-title": "Osman Esad",
