@@ -1,10 +1,24 @@
 :root {
-    --bg: #f5f5f5;
-    --bg-alt: #ffffff;
-    --text: #111111;
-    --muted: #666666;
-    --border: #dddddd;
-    --accent: #111111;
+    /* zemin / arka plan */
+    --bg: #f4eee5;
+    /* hafif bej, kahve kafe duvarı gibi */
+    --bg-alt: #fffaf2;
+    /* kartlar ve paneller için daha açık ton */
+
+    /* metinler */
+    --text: #201710;
+    /* koyu kahverengi, neredeyse siyah */
+    --muted: #7b6653;
+    /* açıklama yazıları için sıcak gri-kahve */
+
+    /* çizgiler / sınırlar */
+    --border: #e0d2c1;
+    /* yumuşak outline */
+
+    /* vurgu rengi (buton, link, underline) */
+    --accent: #4b2b18;
+    /* koyu espresso tonu */
+
     --radius: 14px;
     --transition: 200ms ease;
 }
@@ -18,7 +32,7 @@
 body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
         "Segoe UI", sans-serif;
-    background: var(--bg);
+    background: radial-gradient(circle at top, #f9f1e4 0, var(--bg) 52%);
     color: var(--text);
     line-height: 1.6;
 }
@@ -209,10 +223,11 @@ header {
 }
 
 .btn-secondary:hover {
-    background: #ffffff;
-    border-color: #bbbbbb;
+    background: rgba(75, 43, 24, 0.05);
+    /* accent'in çok hafif bir tonu */
+    border-color: #d0bba6;
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 12px rgba(32, 23, 16, 0.12);
 }
 
 .hero-side-card {
@@ -281,9 +296,9 @@ header {
 
 .section-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
-    border-color: #cccccc;
-    background: #ffffff;
+    box-shadow: 0 14px 30px rgba(32, 23, 16, 0.18);
+    border-color: #d2bda7;
+    background: #fffdf7;
 }
 
 .section-title {
@@ -553,9 +568,14 @@ footer {
         grid-template-columns: 1fr;
     }
 
-    .hero-side-card {
-        order: -1;
-    }
+        .hero-side-card {
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            background: linear-gradient(135deg, #fffaf2 0%, #f2e3d2 100%);
+            padding: 18px 18px 16px;
+            font-size: 13px;
+            align-self: flex-start;
+        }
 
     .sections-grid {
         grid-template-columns: 1fr;
