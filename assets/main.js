@@ -115,7 +115,7 @@ const CONTENT = {
       "DASE, İstanbul’da kurduğum kahve, kitap ve kültür odaklı bir marka. Seçili kahveler, kitaplar, kırtasiye ve küçük sanat objeleri etrafında bir alan kurarken; ileride workshop ve etkinliklerle de genişlemeyi hedefliyorum.",
     "about-block3":
       "Teknik tarafta Swift, Python, JavaScript ve temel web teknolojileri ile çalışıyorum. Aynı zamanda çizimler, eskizler ve kişisel yazılar üreterek süreci de görünür kılmaya çalışıyorum.",
-    "about-contact-link": "E-posta ile iletişim",
+    
 
     // Footer
     "footer-left": "© 2026 · Osman Esad Hoşbak"
@@ -235,7 +235,7 @@ const CONTENT = {
       "DASE is a brand I’m building in Istanbul around coffee, books and culture. It brings together selected coffees, books, stationery and small art objects, and will eventually host workshops and events.",
     "about-block3":
       "On the technical side I work with Swift, Python, JavaScript and core web technologies. I also keep a sketchbook of drawings and personal writing to document the process.",
-    "about-contact-link": "Contact via email",
+    
 
     // Footer
     "footer-left": "© 2026 · Osman Esad Hoşbak"

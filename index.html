@@ -23,6 +23,7 @@
                     <a id="nav-art" data-page="art">Çizimler</a>
                     <a id="nav-code" data-page="code">Kod</a>
                     <a id="nav-about" data-page="about">Hakkında</a>
+                    <a data-page="contact">İletişim</a>
                 </nav>
                 <div class="lang-switch">
                     <button class="lang-btn is-active" data-lang="tr">TR</button>
@@ -382,10 +383,11 @@
                             çalışıyorum. Aynı zamanda çizimler, eskizler ve kişisel yazılar
                             üreterek süreci de görünür kılmaya çalışıyorum.
                         </p>
-                        <a id="about-contact-link" class="item-link" href="mailto:byesad@gmail.com">
+                        <a class="item-link" href="mailto:byesad@gmail.com">
                             <span>E-posta ile iletişim</span>
                             <span class="icon">↗</span>
                         </a>
+
                     </article>
 
                     <div class="social-strip">
@@ -401,6 +403,39 @@
 
                 </div>
             </section>
+
+            <!-- CONTACT -->
+            <section id="page-contact" class="page-section" aria-label="İletişim">
+                <header class="page-header">
+                    <div class="page-kicker">İletişim</div>
+                    <h1 class="page-title">Bana ulaş</h1>
+                    <p class="page-subtitle">
+                        İş, işbirliği veya sadece merhaba demek için yazabilirsin.
+                    </p>
+                </header>
+            
+                <form class="contact-form" action="https://formspree.io/f/xaqqkwqe" method="POST">
+                    <div class="form-row">
+                        <label for="name">İsim</label>
+                        <input type="text" name="name" id="name" required />
+                    </div>
+            
+                    <div class="form-row">
+                        <label for="email">E-posta</label>
+                        <input type="email" name="email" id="email" required />
+                    </div>
+            
+                    <div class="form-row">
+                        <label for="message">Mesaj</label>
+                        <textarea name="message" id="message" rows="5" required></textarea>
+                    </div>
+            
+                    <button type="submit" class="btn btn-primary">
+                        Gönder →
+                    </button>
+                </form>
+            </section>
+
 
             <!-- Footer (common) -->
             <footer>

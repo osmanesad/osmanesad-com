@@ -1,23 +1,25 @@
 :root {
-    /* zemin / arka plan */
-    --bg: #f4eee5;
-    /* hafif bej, kahve kafe duvarı gibi */
-    --bg-alt: #fffaf2;
-    /* kartlar ve paneller için daha açık ton */
+    /* zemin */
+    --bg: #f6f7fb;
+    /* açık gri-mavi, editoryal */
+    --bg-alt: #ffffff;
+    /* kartlar */
 
-    /* metinler */
-    --text: #201710;
-    /* koyu kahverengi, neredeyse siyah */
-    --muted: #7b6653;
-    /* açıklama yazıları için sıcak gri-kahve */
+    /* metin */
+    --text: #0f172a;
+    /* koyu lacivert-siyah */
+    --muted: #64748b;
+    /* slate / editorial secondary */
 
-    /* çizgiler / sınırlar */
-    --border: #e0d2c1;
-    /* yumuşak outline */
+    /* ana vurgu (DASE blue) */
+    --accent: #0038c7;
+    --accent-soft: #e4ebff;
 
-    /* vurgu rengi (buton, link, underline) */
-    --accent: #4b2b18;
-    /* koyu espresso tonu */
+    /* sıcak ikincil vurgu (kahve / insan tarafı) */
+    --accent-warm: #8b5a2b;
+
+    /* sınırlar */
+    --border: #e2e8f0;
 
     --radius: 14px;
     --transition: 200ms ease;
@@ -32,7 +34,7 @@
 body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
         "Segoe UI", sans-serif;
-    background: radial-gradient(circle at top, #f9f1e4 0, var(--bg) 52%);
+    background: radial-gradient(circle at top, #eef2ff 0%, var(--bg) 55%);
     color: var(--text);
     line-height: 1.6;
 }
@@ -178,7 +180,7 @@ header {
     font-size: 14px;
     text-transform: lowercase;
     letter-spacing: 0.18em;
-    color: var(--muted);
+    color: rgba(0, 56, 199, 0.9);
     margin-bottom: 24px;
 }
 
@@ -243,7 +245,7 @@ header {
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.18em;
-    color: var(--muted);
+    color: var(--accent-warm);
     margin-bottom: 8px;
 }
 
@@ -296,9 +298,9 @@ header {
 
 .section-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 14px 30px rgba(32, 23, 16, 0.18);
-    border-color: #d2bda7;
-    background: #fffdf7;
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.18);
+    border-color: #c7d2fe;
+    background: #f9fbff;
 }
 
 .section-title {
@@ -353,6 +355,7 @@ header {
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 10px;
+    color: var(--accent-warm);
 }
 
 .about-home-body {
@@ -377,7 +380,7 @@ header {
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.18em;
-    color: var(--muted);
+    color: var(--accent);
     margin-bottom: 6px;
 }
 
@@ -414,9 +417,9 @@ header {
 }
 
 .item-card:hover {
-    border-color: #cfcfcf;
-    background: #ffffff;
-    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+    border-color: #c7d2fe;
+    background: #f9fbff;
+    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.14);
     transform: translateY(-2px);
 }
 
@@ -598,4 +601,43 @@ footer {
     .page {
         padding: 16px;
     }
+}
+/* Contact form */
+
+.contact-form {
+    max-width: 420px;
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.form-row label {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.form-row input,
+.form-row textarea {
+    font-family: inherit;
+    font-size: 14px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg-alt);
+    color: var(--text);
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.form-row input:focus,
+.form-row textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(0, 56, 199, 0.15);
 }
