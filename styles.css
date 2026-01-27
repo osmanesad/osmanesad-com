@@ -14,8 +14,17 @@ body{
 
 .shell{max-width:1080px;margin:0 auto;padding:44px 18px 88px;}
 header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:18px;}
-.name{font-size:20px;font-weight:600;letter-spacing:0.2px;}
+.name{
+  font-size:20px;
+  font-weight:600;
+  letter-spacing:0.2px;
+  color:var(--text);
+  text-decoration:none;
+}
 
+.name:hover{
+  opacity:.55; /* çok hafif bir geri bildirim */
+}
 
 
 /* Layout: içerik + sağ menü */
