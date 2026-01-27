@@ -140,7 +140,8 @@ function setActivePost(id){
   contentEl.innerHTML=p.content || '';
   Like.setPost(p.id);
   renderSidebar(p.id);
-  window.scrollTo({ top: 0, behavior: 'instant' });
+  // 'instant' is not a valid ScrollBehavior; use 'auto' for an immediate jump.
+  window.scrollTo({ top: 0, behavior: 'auto' });
 }
 
 async function load(){
