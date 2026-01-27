@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Osman Esad — Arşiv</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="shell shell-archive">
+    <header class="archiveHeader">
+      <div>
+        <h1 class="archiveTitle">Arşiv</h1>
+        <div class="archiveMeta" id="countLine">Yükleniyor…</div>
+      </div>
+      <div class="archiveTopbar">
+        <a class="asideBtn" href="index.html">← Okumaya dön</a>
+      </div>
+    </header>
+
+    <nav class="timeline" id="timeline" aria-label="Zaman çizelgesi"></nav>
+
+    <div class="archiveControls">
+      <input id="q" class="archiveSearch" type="search" placeholder="Başlık içinde ara…" />
+      <button class="asideBtn" id="clear">Temizle</button>
+    </div>
+
+    <ul class="archiveList2" id="list"></ul>
+  </main>
+
+  <script src="archive.js" defer></script>
+  <button class="toTop" id="toTop" aria-label="Sayfa başına dön" title="Yukarı">↑</button>
+
+</body>
+</html>

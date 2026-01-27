@@ -1,647 +1,143 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="tr">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Osman Esad — Kurucu, Tasarımcı, Geliştirici</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="Osman Esad — founder, designer, developer and publisher. Writing, art and code in one place."
-    />
-    <link rel="stylesheet" href="assets/styles.css" />
-    <script src="assets/main.js" defer></script>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Osman Esad — Yazılar</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
 
-  <body>
-    <div class="page">
-      <div class="container">
-        <!-- Header -->
-        <header>
-          <div class="logo">osmanesad</div>
-          <nav class="nav-links">
-            <a id="nav-home" data-page="home" class="is-active">Ana sayfa</a>
-            <a id="nav-writing" data-page="writing">Yazılar</a>
-            <a id="nav-art" data-page="art">Çizimler</a>
-            <a id="nav-code" data-page="code">Kod</a>
-            <a id="nav-about" data-page="about">Hakkında</a>
-            <a id="nav-contact" data-page="contact">İletişim</a>
+  <main class="shell">
+    <header>
+      <div class="name">Osman Esad - Yazılar</div>
 
-          </nav>
-          <div class="lang-switch">
-            <button class="lang-btn is-active" data-lang="tr">TR</button>
-            <span class="lang-divider">/</span>
-            <button class="lang-btn" data-lang="en">EN</button>
-          </div>
-        </header>
+      <nav class="iconLinks" aria-label="Bağlantılar">
+  <a class="social" href="https://osmanesad.medium.com/" target="_blank" title="Medium" rel="noopener">
+    <img src="assets/icons/medium.svg" alt="Medium">
+  </a>
 
-        <!-- HOME PAGE -->
-        <main id="page-home" class="page-section is-active">
-          <!-- Hero -->
-          <section class="hero" aria-label="Giriş">
-            <div>
-              <h1 id="hero-title" class="hero-main-title">Osman Esad</h1>
-              <div id="hero-subtitle" class="hero-subtitle">
-                kurucu · tasarımcı · geliştirici · yayıncı
-              </div>
-              <p id="hero-text" class="hero-text">
-                Kahve, kitap ve kültür etrafında DASE markasını kurarken;
-                yazılım araçları, çizimler ve kişisel yazılar üretiyorum. Bu
-                sayfa, tüm işlerin toplandığı sade bir harita.
-              </p>
-              <div class="hero-buttons">
-                <a
-                  id="hero-btn-writing"
-                  class="btn btn-primary"
-                  data-page-link="writing"
-                >
-                  Yazılara git
-                </a>
-                <a
-                  id="hero-btn-art"
-                  class="btn btn-secondary"
-                  data-page-link="art"
-                >
-                  Çizimlere bak
-                </a>
-                <a
-                  id="hero-btn-contact"
-                  href="mailto:byesad@gmail.com"
-                  class="btn btn-secondary"
-                >
-                  E-posta
-                </a>
-              </div>
+  <a class="social" href="https://github.com/osmanesad" target="_blank" title="GitHub" rel="noopener">
+    <img src="assets/icons/github.svg" alt="GitHub">
+  </a>
+
+  <a class="social" href="https://www.artstation.com/masondase" target="_blank" title="ArtStation" rel="noopener">
+    <img src="assets/icons/artstation.svg" alt="ArtStation">
+  </a>
+
+  <a class="social" href="https://www.behance.net/osmanesad" target="_blank" title="Behance" rel="noopener">
+    <img src="assets/icons/behance.svg" alt="Behance">
+  </a>
+
+  <a class="social" href="https://www.linkedin.com/in/osmanesad/" target="_blank" title="LinkedIn" rel="noopener">
+    <img src="assets/icons/linkedin.svg" alt="LinkedIn">
+  </a>
+
+  <a class="social" href="https://www.instagram.com/masondase/" target="_blank" title="Instagram" rel="noopener">
+    <img src="assets/icons/instagram.svg" alt="Instagram">
+  </a>
+
+  <a class="social" href="https://vsco.co/osmanesad/gallery" target="_blank" title="VSCO" rel="noopener">
+    <img src="assets/icons/vsco.svg" alt="VSCO">
+  </a>
+
+  <a class="social" href="https://youtube.com/@osmanesad?si=cu8vE3Sx6dMPpb2N" target="_blank" title="YouTube" rel="noopener">
+    <img src="assets/icons/youtube.svg" alt="YouTube">
+  </a>
+
+  <a class="social" href="https://www.pinterest.com/g0324d/" target="_blank" title="Pinterest" rel="noopener">
+    <img src="assets/icons/pinterest.svg" alt="Pinterest">
+  </a>
+</nav>
+
+      <button class="mobileMenuBtn" id="openPosts" aria-label="Yazıları aç">Yazılar</button>
+
+    </header>
+
+    <div class="layout">
+      <section class="page">
+        <section class="toolbar" aria-label="Okuma modu">
+          <div class="group">
+            <div class="label">Metin</div>
+            <div class="seg" role="group" aria-label="Yazı boyutu">
+              <button class="iconBtn" id="decrease" aria-label="Yazıyı küçült">A−</button>
+              <button class="iconBtn" id="increase" aria-label="Yazıyı büyüt">A+</button>
             </div>
-
-            <aside class="hero-side-card">
-              <div id="hero-currently-title" class="hero-side-title">
-                Şu anda
-              </div>
-              <ul class="hero-side-list">
-                <li>
-                  <span
-                    id="hero-currently-writing-label"
-                    class="hero-side-label"
-                    >Yazıyorum</span
-                  >
-                  <span class="hero-side-value">
-                    <a
-                      href="https://osmanesad.medium.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      >Medium</a
-                    >
-                  </span>
-                </li>
-                <li>
-                  <span id="hero-currently-art-label" class="hero-side-label"
-                    >Çiziyorum</span
-                  >
-                  <span class="hero-side-value">
-                    <a
-                      href="https://www.artstation.com/masondase"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      >ArtStation</a
-                    >
-                  </span>
-                </li>
-                <li>
-                  <span id="hero-currently-code-label" class="hero-side-label"
-                    >Kod yazıyorum</span
-                  >
-                  <span class="hero-side-value">
-                    <a
-                      href="https://github.com/osmanesad"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      >GitHub</a
-                    >
-                  </span>
-                </li>
-              </ul>
-            </aside>
-          </section>
-
-          <!-- Sections grid -->
-          <section class="sections-grid" aria-label="İşler">
-            <!-- Writing -->
-            <article class="section-card">
-              <div>
-                <h2 id="home-writing-title" class="section-title">Yazılar</h2>
-                <p id="home-writing-desc" class="section-desc">
-                  Süreç, araçlar ve gündelik hayat üzerine denemeler ve kısa
-                  notlar.
-                </p>
-              </div>
-              <div class="section-action">
-                <button
-                  id="home-writing-button"
-                  type="button"
-                  data-page-link="writing"
-                >
-                  Tüm yazıları gör
-                </button>
-              </div>
-            </article>
-
-            <!-- Art -->
-            <article class="section-card">
-              <div>
-                <h2 id="home-art-title" class="section-title">Çizimler</h2>
-                <p id="home-art-desc" class="section-desc">
-                  Dijital ve geleneksel medyada eskizler, deneyler ve serbest
-                  çalışmalar.
-                </p>
-              </div>
-              <div class="section-action">
-                <button id="home-art-button" type="button" data-page-link="art">
-                  Çizim arşivi
-                </button>
-              </div>
-            </article>
-
-            <!-- Code -->
-            <article class="section-card">
-              <div>
-                <h2 id="home-code-title" class="section-title">
-                  Kod projeleri
-                </h2>
-                <p id="home-code-desc" class="section-desc">
-                  Stok takibi, otomasyon ve günlük işler için küçük araçlar ve
-                  deneyler.
-                </p>
-              </div>
-              <div class="section-action">
-                <button
-                  id="home-code-button"
-                  type="button"
-                  data-page-link="code"
-                >
-                  Projelere bak
-                </button>
-              </div>
-            </article>
-          </section>
-
-          <!-- About snippet -->
-          <section class="about-home" aria-label="Kısa bilgi">
-            <h2 id="about-home-title" class="about-home-title">Kısaca</h2>
-            <div id="about-home-body" class="about-home-body">
-              Kitap, kafe ve kırtasiye alanlarında operasyon ve müşteri deneyimi
-              tarafında çalıştım; aynı zamanda yazılım ve tasarım üretmeye devam
-              ettim. Şu anda bu birikimi DASE markası altında birleştiriyorum.
-            </div>
-            <div id="about-home-meta" class="about-home-meta">
-              İstanbul’da yaşıyorum. Odaklandığım alanlar: kahve & kültür, stok
-              yönetimi, küçük yazılım araçları ve görsel işler.
-            </div>
-          </section>
-        </main>
-
-        <!-- WRITING PAGE -->
-        <section id="page-writing" class="page-section" aria-label="Yazılar">
-          <header class="page-header">
-            <div id="writing-kicker" class="page-kicker">Yazılar</div>
-            <h1 id="writing-title" class="page-title">Seçilmiş yazılar</h1>
-            <p id="writing-subtitle" class="page-subtitle">
-              Medium’da yayımladığım bazı denemeler ve kısa metinler.
-            </p>
-          </header>
-
-          <div class="item-list">
-            <!-- ITEM 1 -->
-            <article class="item-card">
-              <div class="item-title-row">
-                <h2 id="writing-item1-title" class="item-title">Yol</h2>
-                <span id="writing-item1-meta" class="item-meta"
-                  >deneme · Medium</span
-                >
-              </div>
-              <p id="writing-item1-desc" class="item-desc">
-                Yön arayışı, mesafe ve kendi yolunu kurmak üzerine kişisel bir
-                metin.
-              </p>
-              <a
-                id="writing-item1-link"
-                class="item-link"
-                href="https://osmanesad.medium.com/yol-a1e5287a4ad7"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span>Medium’da oku</span>
-                <span class="icon">↗</span>
-              </a>
-            </article>
-
-            <!-- ITEM 2 -->
-            <article class="item-card">
-              <div class="item-title-row">
-                <h2 id="writing-item2-title" class="item-title">Bağlantı</h2>
-                <span id="writing-item2-meta" class="item-meta"
-                  >deneme · Medium</span
-                >
-              </div>
-              <p id="writing-item2-desc" class="item-desc">
-                İnsanlar, yerler ve eşyalar arasındaki bağların nasıl
-                kurulduğuna dair kısa bir gözlem.
-              </p>
-              <a
-                id="writing-item2-link"
-                class="item-link"
-                href="https://osmanesad.medium.com/ba%C4%9Flant%C4%B1-d1ff97782228"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span>Medium’da oku</span>
-                <span class="icon">↗</span>
-              </a>
-            </article>
-
-            <!-- ITEM 3 -->
-            <article class="item-card">
-              <div class="item-title-row">
-                <h2 id="writing-item3-title" class="item-title">Makine</h2>
-                <span id="writing-item3-meta" class="item-meta"
-                  >deneme · Medium</span
-                >
-              </div>
-              <p id="writing-item3-desc" class="item-desc">
-                Makine fikrinden yola çıkarak sistemler, araçlar ve insan
-                arasındaki ilişkiye bakan bir metin.
-              </p>
-              <a
-                id="writing-item3-link"
-                class="item-link"
-                href="https://osmanesad.medium.com/makine-486124fa4a0d"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span>Medium’da oku</span>
-                <span class="icon">↗</span>
-              </a>
-            </article>
-          </div>
-        </section>
-
-        <!-- ART PAGE -->
-        <section id="page-art" class="page-section" aria-label="Çizimler">
-          <header class="page-header">
-            <div id="art-kicker" class="page-kicker">Çizimler</div>
-            <h1 id="art-title" class="page-title">Seçilmiş görseller</h1>
-            <p id="art-subtitle" class="page-subtitle">
-              Dijital ve geleneksel tekniklerle yaptığım bazı çalışmalar.
-            </p>
-          </header>
-
-          <div class="art-grid">
-            <!-- ART 1 -->
-            <article class="item-card art-card">
-              <img src="assets/art1.jpg" alt="art1" class="art-image" />
-              <div class="art-text">
-                <div class="item-title-row">
-                  <h2 id="art-item1-title" class="item-title">Art 1</h2>
-                  <span id="art-item1-meta" class="item-meta"
-                    >pastel · renkli</span
-                  >
-                </div>
-                <p id="art-item1-desc" class="item-desc">
-                  Yoğun renkler ve katmanlı doku ile yapılmış, kaotik bir portre
-                  kompozisyonu.
-                </p>
-              </div>
-            </article>
-
-            <!-- ART 2 -->
-            <article class="item-card art-card">
-              <img src="assets/art2.jpg" alt="art2" class="art-image" />
-              <div class="art-text">
-                <div class="item-title-row">
-                  <h2 id="art-item2-title" class="item-title">Art 2</h2>
-                  <span id="art-item2-meta" class="item-meta"
-                    >dijital eskiz</span
-                  >
-                </div>
-                <p id="art-item2-desc" class="item-desc">
-                  Kuleler ve kubbelerden oluşan, şehir silueti tadında mimari
-                  bir eskiz.
-                </p>
-              </div>
-            </article>
-
-            <!-- ART 3 -->
-            <article class="item-card art-card">
-              <img src="assets/art3.jpg" alt="art3" class="art-image" />
-              <div class="art-text">
-                <div class="item-title-row">
-                  <h2 id="art-item3-title" class="item-title">Art 3</h2>
-                  <span id="art-item3-meta" class="item-meta"
-                    >metin + çizim</span
-                  >
-                </div>
-                <p id="art-item3-desc" class="item-desc">
-                  El yazısı katmanlarıyla kaplanmış, figür ve metni iç içe
-                  geçiren deneysel bir çalışma.
-                </p>
-              </div>
-            </article>
           </div>
 
-          <a
-            id="art-cta-link"
-            class="item-link"
-            href="https://www.artstation.com/masondase"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span>Daha fazlası için ArtStation</span>
-            <span class="icon">↗</span>
-          </a>
-        </section>
-
-        <!-- CODE PAGE -->
-        <section id="page-code" class="page-section" aria-label="Kod">
-          <header class="page-header">
-            <div id="code-kicker" class="page-kicker">Kod</div>
-            <h1 id="code-title" class="page-title">Seçilmiş projeler</h1>
-            <p id="code-subtitle" class="page-subtitle">
-              Stok takibi, otomasyon ve günlük işler için geliştirdiğim bazı
-              küçük araçlar.
-            </p>
-          </header>
-
-          <div class="item-list">
-            <!-- CODE 1 fastStock -->
-            <article class="item-card">
-              <div class="item-title-row">
-                <h2 id="code-item1-title" class="item-title">fastStock</h2>
-                <span id="code-item1-meta" class="item-meta">Swift · iOS</span>
-              </div>
-              <p id="code-item1-desc" class="item-desc">
-                Ürün stoklarını hızlıca takip etmek için tasarladığım, Swift ile
-                geliştirilmiş bir iOS uygulaması.
-              </p>
-              <a
-                id="code-item1-link"
-                class="item-link"
-                href="https://github.com/osmanesad/fastStock"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span>GitHub reposu</span>
-                <span class="icon">↗</span>
-              </a>
-            </article>
-
-            <!-- CODE 2 kitap_stok_takip_py -->
-            <article class="item-card">
-              <div class="item-title-row">
-                <h2 id="code-item2-title" class="item-title">
-                  Kitap Stok Takip
-                </h2>
-                <span id="code-item2-meta" class="item-meta">Python · CLI</span>
-              </div>
-              <p id="code-item2-desc" class="item-desc">
-                Kitap mağazaları için stok ve hareket takibini kolaylaştıran
-                basit bir Python aracı.
-              </p>
-              <a
-                id="code-item2-link"
-                class="item-link"
-                href="https://github.com/osmanesad/kitap_stok_takip_py"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span>GitHub reposu</span>
-                <span class="icon">↗</span>
-              </a>
-            </article>
-
-            <!-- CODE 3 GoogleDriveApi -->
-            <article class="item-card">
-              <div class="item-title-row">
-                <h2 id="code-item3-title" class="item-title">
-                  Google Drive API denemeleri
-                </h2>
-                <span id="code-item3-meta" class="item-meta">Python · API</span>
-              </div>
-              <p id="code-item3-desc" class="item-desc">
-                Google Drive API ile dosya listeleme ve otomasyonlar üzerine
-                gerçekleştirdiğim test ve denemeler.
-              </p>
-              <a
-                id="code-item3-link"
-                class="item-link"
-                href="https://github.com/osmanesad/GoogleDriveApi"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span>GitHub reposu</span>
-                <span class="icon">↗</span>
-              </a>
-            </article>
-          </div>
-        </section>
-
-        <!-- ABOUT PAGE -->
-        <section id="page-about" class="page-section" aria-label="Hakkında">
-          <header class="page-header">
-            <div id="about-kicker" class="page-kicker">Hakkında</div>
-            <h1 id="about-title" class="page-title">Osman Esad</h1>
-            <p id="about-subtitle" class="page-subtitle">
-              Kahve, kitap ve yazılım ekseninde çalışan; aynı anda hem dükkan
-              işi hem kod hem de görsel üretim yapan hibrit bir profil.
-            </p>
-          </header>
-
-          <div class="item-list">
-            <article class="item-card">
-              <p id="about-block1" class="item-desc">
-                Kitap-kırtasiye ve kafe sektörlerinde satış, kasa ve operasyon
-                tarafında uzun yıllar çalıştım. Aynı dönemde yazılım ve tasarım
-                öğrenip küçük araçlar, arayüzler ve projeler geliştirdim.
-              </p>
-            </article>
-
-            <article class="item-card">
-              <p id="about-block2" class="item-desc">
-                DASE, İstanbul’da kurduğum kahve, kitap ve kültür odaklı bir
-                marka. Seçili kahveler, kitaplar, kırtasiye ve küçük sanat
-                objeleri etrafında bir alan kurarken; ileride workshop ve
-                etkinliklerle de genişlemeyi hedefliyorum.
-              </p>
-            </article>
-
-            <article class="item-card">
-              <p id="about-block3" class="item-desc">
-                Teknik tarafta Swift, Python, JavaScript ve temel web
-                teknolojileri ile çalışıyorum. Aynı zamanda çizimler, eskizler
-                ve kişisel yazılar üreterek süreci de görünür kılmaya
-                çalışıyorum.
-              </p>
-              <a class="item-link" href="mailto:byesad@gmail.com">
-                <span>E-posta ile iletişim</span>
-                <span class="icon">↗</span>
-              </a>
-            </article>
-
-            <div class="social-strip">
-              <span class="social-strip-label"
-                >Beni ayrıca şuralarda bulabilirsiniz:</span
-              >
-              <div class="social-strip-links">
-                <a
-                  href="https://www.linkedin.com/in/osmanesad/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >LinkedIn</a
-                >
-                <a
-                  href="https://github.com/osmanesad"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >GitHub</a
-                >
-                <a
-                  href="https://osmanesad.medium.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >Medium</a
-                >
-                <a
-                  href="https://www.artstation.com/masondase"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >ArtStation</a
-                >
-                <a
-                  href="https://www.instagram.com/masondase/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >Instagram</a
-                >
-              </div>
+          <div class="group">
+            <div class="label">Tema</div>
+            <div class="dots" role="group" aria-label="Tema seçimi">
+              <button class="dot" id="t-white" title="Beyaz" aria-label="Beyaz" aria-pressed="true" style="background:#ffffff"></button>
+              <button class="dot" id="t-sepia" title="Sarımtırak" aria-label="Sarımtırak" aria-pressed="false" style="background:#f6f1e5"></button>
+              <button class="dot" id="t-gray" title="Gri" aria-label="Gri" aria-pressed="false" style="background:#f1f1f1"></button>
+              <button class="dot" id="t-dark" title="Karanlık" aria-label="Karanlık" aria-pressed="false" style="background:#0e0f12"></button>
             </div>
           </div>
         </section>
 
-        <!-- CONTACT -->
-        <section id="page-contact" class="page-section" aria-label="İletişim">
-          <header class="page-header">
-            <div id="contact-kicker" class="page-kicker">İletişim</div>
-<h1 id="contact-title" class="page-title">Bana ulaş</h1>
-<p id="contact-subtitle" class="page-subtitle">...</p>
-              İş, işbirliği veya sadece merhaba demek için yazabilirsin.
-            </p>
-          </header>
+        <div class="divider"></div>
 
-          <form
-            class="contact-form"
-            action="https://formspree.io/f/xaqqkwqe"
-            method="POST"
-          >
-            <div class="form-row">
-              <label id="contact-label-name" for="name">İsim</label>
-              <input type="text" name="name" id="name" required />
-            </div>
+        <article id="article">
+          <h1 id="title">Yükleniyor…</h1>
+          <div class="dateLine" id="dateLine"></div>
+          <div id="content"></div>
 
-            <div class="form-row">
-              <label id="contact-label-email" for="email">E-posta</label>
-              <input type="email" name="email" id="email" required />
-            </div>
+          <div class="actions" id="actions">
+            <button class="action" id="likeBtn" aria-label="Beğen">
+              <svg class="heart" viewBox="-2 -2 28 28" fill="none" aria-hidden="true">
+  <path class="heartPath"
+    d="M12 21s-7.2-4.35-9.6-8.5C.64 9.03 2.1 5.9 5.4 5.2c1.86-.4 3.6.35 4.6 1.65 1-1.3 2.74-2.05 4.6-1.65 3.3.7 4.76 3.83 3 7.3C19.2 16.65 12 21 12 21Z"
+    stroke="currentColor"
+    stroke-width="1.5"
+  />
+</svg>
 
-            <div class="form-row">
-              <label id="contact-label-message" for="message">Mesaj</label>
-              <textarea
-                name="message"
-                id="message"
-                rows="5"
-                required
-              ></textarea>
-            </div>
-            <button id="contact-send" type="submit" class="btn btn-primary">Gönder →</button>
-          </form>
-        </section>
+                <path class="heartPath" d="M12 21s-7.2-4.35-9.6-8.5C.64 9.03 2.1 5.9 5.4 5.2c1.86-.4 3.6.35 4.6 1.65 1-1.3 2.74-2.05 4.6-1.65 3.3.7 4.76 3.83 3 7.3C19.2 16.65 12 21 12 21Z" stroke="currentColor" stroke-width="1.5" />
+              </svg>
+              <span>Beğen</span>
+              <span class="count" id="likeCount">0</span>
+            </button>
 
-        <!-- Footer (common) -->
-        <footer>
-          <div id="footer-left">© 2026 · Osman Esad Hoşbak</div>
-
-          <!-- Ana kanallar -->
-          <div class="footer-links footer-primary">
-            <a href="mailto:byesad@gmail.com">
-              <span class="footer-icon">✉</span>E-posta
-            </a>
-            <a
-              href="https://www.linkedin.com/in/osmanesad/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="footer-icon">in</span>LinkedIn
-            </a>
-            <a
-              href="https://github.com/osmanesad"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="footer-icon">GH</span>GitHub
-            </a>
-            <a
-              href="https://osmanesad.medium.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="footer-icon">✍</span>Medium
-            </a>
-            <a
-              href="https://www.artstation.com/masondase"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="footer-icon">🎨</span>ArtStation
-            </a>
-            <a
-              href="https://www.instagram.com/masondase/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="footer-icon">IG</span>Instagram
-            </a>
+            <button class="action" id="shareBtn" aria-label="Paylaş">
+              <svg class="plane" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M21 3L9.5 14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                <path d="M21 3l-7 19-3-8-8-3 18-8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+              </svg>
+              <span>Paylaş</span>
+            </button>
           </div>
+        </article>
 
-          <!-- Diğer kanallar -->
-          <div class="footer-links footer-secondary">
-            <a
-              href="https://www.behance.net/osmanesad"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="footer-icon">Bē</span>Behance
-            </a>
-            <a
-              href="https://vsco.co/osmanesad/gallery"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="footer-icon">VS</span>VSCO
-            </a>
-            <a
-              href="https://youtube.com/@osmanesad?si=cu8vE3Sx6dMPpb2N"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="footer-icon">▶</span>YouTube
-            </a>
-            <a
-              href="https://www.pinterest.com/g0324d/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="footer-icon">📌</span>Pinterest
-            </a>
+        <footer>@masondase - @dasecoffee.co</footer>
+      </section>
+
+      <aside aria-label="Yazılar">
+        <div class="asideHeader">
+          <div class="asideTitle"><b>Yazılar</b></div>
+          <div class="asideActions">
+            <button class="asideBtn" id="randomBtn" title="Rastgele bir yazı aç">Rastgele</button>
+            <a class="asideBtn" href="archive.html" title="Tümü / Arşiv">Arşiv</a>
           </div>
-        </footer>
-      </div>
+        </div>
+        <ul class="postList" id="postList"></ul>
+      </aside>
     </div>
-  </body>
+  </main>
+  <div class="drawerBackdrop" id="drawerBackdrop" hidden></div>
+
+<aside class="drawer" id="drawer" aria-label="Yazılar menüsü" hidden>
+  <div class="drawerTop">
+    <div class="drawerTitle"><b>Yazılar</b></div>
+    <button class="drawerClose" id="closeDrawer" aria-label="Kapat">✕</button>
+  </div>
+  <ul class="drawerList" id="drawerList"></ul>
+  <a class="drawerArchive" href="archive.html">Arşiv →</a>
+</aside>
+
+
+  <script src="app.js" defer></script>
+  <button class="toTop" id="toTop" aria-label="Sayfa başına dön" title="Yukarı">↑</button>
+
+</body>
 </html>
