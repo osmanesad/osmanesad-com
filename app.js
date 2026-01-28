@@ -331,3 +331,56 @@ setActivePost = function(id){
   _origSetActivePost(id);
   renderDrawerList(id);
 };
+
+async function initBuildBadge() {
+  const el = document.getElementById("buildBadge");
+  if (!el) return;
+
+  const OWNER = "osmanesad";
+  const REPO = "osmanesad_com"; // repo adını doğru yaz
+  const label = "Open beta";
+
+  try {
+    // 1) Önce latest release dene
+    let res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/releases/latest`, {
+      headers: { "Accept": "application/vnd.github+json" },
+      cache: "no-cache",
+    });
+
+    // Eğer release yoksa 404 gelir → commit fallback
+    if (res.status === 404) {
+      res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/commits/main`, {
+        headers: { "Accept": "application/vnd.github+json" },
+        cache: "no-cache",
+      });
+
+      if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
+      const c = await res.json();
+      const sha = (c.sha || "").slice(0, 7);
+      const date = (c.commit?.committer?.date || "").slice(0, 10);
+      const url = `https://github.com/${OWNER}/${REPO}`;
+
+      el.hidden = false;
+      el.innerHTML = `${label} · <a href="${url}" target="_blank" rel="noopener">commit ${sha}</a>${date ? ` · ${date}` : ""}`;
+      return;
+    }
+
+    if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
+
+    const rel = await res.json();
+    const version = rel.tag_name || "unreleased";
+    const date = (rel.published_at || rel.created_at || "").slice(0, 10);
+    const url = rel.html_url || `https://github.com/${OWNER}/${REPO}`;
+
+    el.hidden = false;
+    el.innerHTML = `${label} · <a href="${url}" target="_blank" rel="noopener">${version}</a>${date ? ` · ${date}` : ""}`;
+  } catch (e) {
+    console.warn("buildBadge failed:", e);
+    // sadece hiç render edilmediyse gizle
+    if (!el.textContent.trim()) el.hidden = true;
+  }
+
+}
+
+initBuildBadge();
+

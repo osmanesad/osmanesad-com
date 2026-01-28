@@ -383,3 +383,14 @@ footer{margin-top:70px;color:var(--muted);font-size:12px;}
     justify-content:flex-start;
   }
 }
+
+.build-badge {
+  margin-top: 14px;
+  font-size: 12px;
+  opacity: .75;
+}
+
+.build-badge a {
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
