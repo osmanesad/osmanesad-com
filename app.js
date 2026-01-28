@@ -1,7 +1,5 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-const TOP_N = 8;
-
 const SUPABASE_URL = "https://zefzcmrsdvtbliguqedi.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_vGfAuyo4h18I-Pqmt25N0Q_OkEtlazb";
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -10,23 +8,67 @@ function getVisitorId() {
   const key = "visitor_id_v1";
   let id = localStorage.getItem(key);
   if (!id) {
-    id = crypto.randomUUID(); // modern tarayıcılar
+    id = crypto.randomUUID();
     localStorage.setItem(key, id);
   }
   return id;
 }
 
+function getSlugStable() {
+  // Geçici: URL dosya adından slug (kendi sistemine göre düzenle)
+  const path = location.pathname.split("/").pop() || "home";
+  return path.replace(".html", "");
+}
+
+async function fetchLikes(slug) {
+  const { data, error } = await supabase
+    .from("post_likes")
+    .select("likes_count")
+    .eq("slug", slug)
+    .maybeSingle();
+  if (error) throw error;
+  return data?.likes_count ?? 0;
+}
+
 async function likeOnce(slug) {
   const visitorId = getVisitorId();
+  console.log("slug:", slug, "visitor:", visitorId);
 
   const { data, error } = await supabase.rpc("like_once", {
     p_slug: slug,
     p_visitor_id: visitorId,
   });
-
   if (error) throw error;
-  return data; // güncel likes_count
+  return data;
 }
+
+async function init() {
+  const slug = getSlugStable();
+
+  const likeBtn = document.getElementById("likeBtn");
+  const likeCountEl = document.getElementById("likeCount");
+  if (!likeBtn || !likeCountEl) {
+    console.warn("likeBtn/likeCount not found in DOM");
+    return;
+  }
+
+  likeCountEl.textContent = await fetchLikes(slug);
+
+  likeBtn.addEventListener("click", async () => {
+    likeBtn.disabled = true;
+    try {
+      const newCount = await likeOnce(slug);
+      likeCountEl.textContent = newCount;
+    } catch (e) {
+      console.error("Like failed:", e);
+    } finally {
+      likeBtn.disabled = false;
+    }
+  });
+}
+
+init();
+
 
 
 // Theme + font size
@@ -164,6 +206,7 @@ shareBtn.addEventListener('click', async () => {
 });
 
 // Data
+const TOP_N = 12; // number of posts shown in sidebar
 let POSTS=[];
 
 function renderSidebar(activeId){
@@ -201,7 +244,7 @@ function setActivePost(id){
 }
 
 async function load(){
-  const res=await fetch('posts.json', { cache: 'no-cache' });
+  const res=await fetch('./posts.json', { cache: 'no-cache' });
   POSTS=await res.json();
   POSTS.sort((a,b)=>(b.date||'').localeCompare(a.date||''));
   const id=location.hash.replace('#','').trim() || (POSTS[0] && POSTS[0].id);
