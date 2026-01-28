@@ -1,35 +1,10 @@
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
 const TOP_N = 8;
 
-const SUPABASE_URL = "https://zefzcmrsdvtbliguqedi.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_vGfAuyo4h18I-Pqmt25N0Q_OkEtlazb";
-
-const supabase = window.createSupabaseClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-function getSlug() {
-  // Örn: /posts/coffee-notes-001.html -> coffee-notes-001
-  const path = location.pathname.split("/").pop() || "home";
-  return path.replace(".html", "");
-}
-
-async function fetchLikes(slug) {
-  const { data, error } = await supabase
-    .from("post_likes")
-    .select("likes_count")
-    .eq("slug", slug)
-    .maybeSingle();
-
-  if (error) throw error;
-  return data?.likes_count ?? 0;
-}
-
-async function incrementLike(slug) {
-  const { data, error } = await supabase.rpc("increment_like", { p_slug: slug });
-  if (error) throw error;
-  return data; // yeni sayı (integer)
-}
-
-
-
+const SUPABASE_URL = "PASTE_YOUR_SUPABASE_URL_HERE";
+const SUPABASE_ANON_KEY = "PASTE_YOUR_SUPABASE_ANON_KEY_HERE";
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Theme + font size
 const THEMES = {
@@ -99,71 +74,55 @@ function fmtDate(iso){
 // Like per post (local)
 const likeBtn=document.getElementById('likeBtn');
 const likeCountEl=document.getElementById('likeCount');
-// Likes (shared across browsers) via Supabase.
-// We still use localStorage only to prevent repeated likes from the same browser for the same post.
-const Like = {
-  postId: null,
-  keyLiked() { return `liked_once_v1::${this.postId}`; },
+const Like={
+  postId:null,
+  keyLiked(){ return `liked_once_v1::${this.postId}`; },
 
-  async getCount() {
+  async fetchCount(){
     const { data, error } = await supabase
       .from("post_likes")
       .select("likes_count")
       .eq("slug", this.postId)
       .maybeSingle();
-
-    if (error) throw error;
+    if(error) throw error;
     return data?.likes_count ?? 0;
   },
 
-  async increment() {
-    const { data, error } = await supabase.rpc("increment_like", { p_slug: this.postId });
-    if (error) throw error;
-    return data; // integer (new count)
-  },
+  async render(){
+    const liked=localStorage.getItem(this.keyLiked())==='1';
+    likeBtn.classList.toggle('liked', liked);
 
-  async setPost(id) {
-    this.postId = id;
-    await this.render();
-  },
-
-  async render() {
-    if (!this.postId) return;
-
-    const liked = localStorage.getItem(this.keyLiked()) === "1";
-    likeBtn.classList.toggle("liked", liked);
-
-    try {
-      const count = await this.getCount();
+    try{
+      const count = await this.fetchCount();
       likeCountEl.textContent = String(count);
-    } catch (e) {
+    }catch(e){
       console.warn("Like fetch failed:", e);
-      // Keep UI usable even if fetch fails
+      // fallback (keeps UI stable if network fails)
       likeCountEl.textContent = likeCountEl.textContent || "0";
     }
   },
 
-  async likeOnce() {
-    if (!this.postId) return;
+  setPost(id){
+    this.postId=id;
+    this.render();
+  },
 
-    const liked = localStorage.getItem(this.keyLiked()) === "1";
-    if (liked) return;
+  async likeOnce(){
+    const liked=localStorage.getItem(this.keyLiked())==='1';
+    if(liked) return;
 
-    likeBtn.disabled = true;
-    try {
-      const newCount = await this.increment();
-      likeCountEl.textContent = String(newCount);
-      localStorage.setItem(this.keyLiked(), "1");
-      likeBtn.classList.add("liked");
-    } catch (e) {
+    try{
+      const { data, error } = await supabase.rpc("increment_like", { p_slug: this.postId });
+      if(error) throw error;
+      likeCountEl.textContent = String(data);
+      localStorage.setItem(this.keyLiked(), '1');
+      likeBtn.classList.add('liked');
+    }catch(e){
       console.warn("Like increment failed:", e);
-    } finally {
-      likeBtn.disabled = false;
     }
   }
 };
-
-likeBtn.addEventListener("click", () => Like.likeOnce());
+likeBtn.addEventListener('click',()=>Like.likeOnce());
 
 // Share current hash URL
 const shareBtn=document.getElementById('shareBtn');
@@ -215,8 +174,7 @@ function setActivePost(id){
   contentEl.innerHTML=p.content || '';
   Like.setPost(p.id);
   renderSidebar(p.id);
-  // 'instant' is not a valid ScrollBehavior; use 'auto' for an immediate jump.
-  window.scrollTo({ top: 0, behavior: 'auto' });
+  window.scrollTo({ top: 0, behavior: 'instant' });
 }
 
 async function load(){
