@@ -2,13 +2,36 @@ import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
 const TOP_N = 8;
 
-const SUPABASE_URL = "PASTE_YOUR_SUPABASE_URL_HERE";
-const SUPABASE_ANON_KEY = "PASTE_YOUR_SUPABASE_ANON_KEY_HERE";
+const SUPABASE_URL = "https://zefzcmrsdvtbliguqedi.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_vGfAuyo4h18I-Pqmt25N0Q_OkEtlazb";
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+function getVisitorId() {
+  const key = "visitor_id_v1";
+  let id = localStorage.getItem(key);
+  if (!id) {
+    id = crypto.randomUUID(); // modern tarayıcılar
+    localStorage.setItem(key, id);
+  }
+  return id;
+}
+
+async function likeOnce(slug) {
+  const visitorId = getVisitorId();
+
+  const { data, error } = await supabase.rpc("like_once", {
+    p_slug: slug,
+    p_visitor_id: visitorId,
+  });
+
+  if (error) throw error;
+  return data; // güncel likes_count
+}
+
 
 // Theme + font size
 const THEMES = {
-  white:{bg:'#ffffff',text:'#111111',muted:'#6b6b6b',line:'#e7e7e7',chip:'#f4f4f4',chipText:'#111',shadow:'rgba(0,0,0,0.04)'},
+  white:{bg:'#ffffff',text:'#111111',muted:'#5d2424',line:'#e7e7e7',chip:'#f4f4f4',chipText:'#111',shadow:'rgba(0,0,0,0.04)'},
   sepia:{bg:'#f6f1e5',text:'#1a1a1a',muted:'#6b5f55',line:'#e7ddcf',chip:'#efe6d7',chipText:'#1a1a1a',shadow:'rgba(0,0,0,0.04)'},
   gray:{bg:'#f1f1f1',text:'#111111',muted:'#6b6b6b',line:'#dedede',chip:'#e9e9e9',chipText:'#111',shadow:'rgba(0,0,0,0.04)'},
   dark:{bg:'#0e0f12',text:'#f3f4f6',muted:'#a1a1aa',line:'#22242a',chip:'#17181d',chipText:'#f3f4f6',shadow:'rgba(0,0,0,0.25)'}
