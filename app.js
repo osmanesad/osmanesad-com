@@ -4,76 +4,6 @@ const SUPABASE_URL = "https://zefzcmrsdvtbliguqedi.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_vGfAuyo4h18I-Pqmt25N0Q_OkEtlazb";
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Sidebar\'da gösterilecek maksimum yazı sayısı
-const TOP_N = 7;
-
-function getVisitorId() {
-  const key = "visitor_id_v1";
-  let id = localStorage.getItem(key);
-  if (!id) {
-    id = crypto.randomUUID();
-    localStorage.setItem(key, id);
-  }
-  return id;
-}
-
-function getSlugStable() {
-  // Geçici: URL dosya adından slug (kendi sistemine göre düzenle)
-  const path = location.pathname.split("/").pop() || "home";
-  return path.replace(".html", "");
-}
-
-async function fetchLikes(slug) {
-  const { data, error } = await supabase
-    .from("post_likes")
-    .select("likes_count")
-    .eq("slug", slug)
-    .maybeSingle();
-  if (error) throw error;
-  return data?.likes_count ?? 0;
-}
-
-async function likeOnce(slug) {
-  const visitorId = getVisitorId();
-  console.log("slug:", slug, "visitor:", visitorId);
-
-  const { data, error } = await supabase.rpc("like_once", {
-    p_slug: slug,
-    p_visitor_id: visitorId,
-  });
-  if (error) throw error;
-  return data;
-}
-
-async function init() {
-  const slug = getSlugStable();
-
-  const likeBtn = document.getElementById("likeBtn");
-  const likeCountEl = document.getElementById("likeCount");
-  if (!likeBtn || !likeCountEl) {
-    console.warn("likeBtn/likeCount not found in DOM");
-    return;
-  }
-
-  likeCountEl.textContent = await fetchLikes(slug);
-
-  likeBtn.addEventListener("click", async () => {
-    likeBtn.disabled = true;
-    try {
-      const newCount = await likeOnce(slug);
-      likeCountEl.textContent = newCount;
-    } catch (e) {
-      console.error("Like failed:", e);
-    } finally {
-      likeBtn.disabled = false;
-    }
-  });
-}
-
-init();
-
-
-
 // Theme + font size
 const THEMES = {
   white:{bg:'#ffffff',text:'#111111',muted:'#5d2424',line:'#e7e7e7',chip:'#f4f4f4',chipText:'#111',shadow:'rgba(0,0,0,0.04)'},
@@ -209,6 +139,7 @@ shareBtn.addEventListener('click', async () => {
 });
 
 // Data
+const TOP_N = 12; // number of posts shown in sidebar
 let POSTS=[];
 
 function renderSidebar(activeId){
@@ -246,24 +177,10 @@ function setActivePost(id){
 }
 
 async function load(){
-  // Supabase'ten sadece yayındaki (published) yazıları çek
-  const { data, error } = await supabase
-    .from('posts')
-    .select('id,title,date,type,content_html,status')
-    .eq('status', 'published')
-    .order('date', { ascending: false });
-
-  if (error) throw error;
-
-  POSTS = (data || []).map(p => ({
-    id: p.id,
-    title: p.title,
-    date: p.date,
-    type: p.type,
-    content: p.content_html
-  }));
-
-  const id = location.hash.replace('#','').trim() || (POSTS[0] && POSTS[0].id);
+  const res=await fetch('posts.json', { cache: 'no-cache' });
+  POSTS=await res.json();
+  POSTS.sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+  const id=location.hash.replace('#','').trim() || (POSTS[0] && POSTS[0].id);
   renderSidebar(id);
   setActivePost(id);
 }
@@ -348,3 +265,25 @@ setActivePost = function(id){
   _origSetActivePost(id);
   renderDrawerList(id);
 };
+
+async function initBuildBadge() {
+  const el = document.getElementById("buildBadge");
+  if (!el) return;
+
+  const url = "https://github.com/osmanesad/osmanesad_com";
+
+  try {
+    const res = await fetch("./version.txt", { cache: "no-cache" });
+    if (!res.ok) throw new Error(`version.txt ${res.status}`);
+    const text = (await res.text()).trim();
+
+    el.hidden = false;
+    el.innerHTML = `${text} · <a href="${url}" target="_blank" rel="noopener">GitHub</a>`;
+  } catch (e) {
+    console.warn("buildBadge failed:", e);
+    el.hidden = true;
+  }
+}
+initBuildBadge();
+
+

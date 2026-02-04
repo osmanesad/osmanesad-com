@@ -247,8 +247,9 @@ footer{margin-top:70px;color:var(--muted);font-size:12px;}
   color:var(--muted);
   font-size:14px;
   padding:6px 10px;
-  border-radius:999px;
+  border-radius:10px;
   cursor:pointer;
+  border-color: rgb(80, 80, 80);
 }
 .mobileMenuBtn:hover{ color:var(--text); background:var(--chip); }
 
@@ -382,4 +383,15 @@ footer{margin-top:70px;color:var(--muted);font-size:12px;}
   .iconLinks{
     justify-content:flex-start;
   }
+}
+
+.build-badge {
+  margin-top: 14px;
+  font-size: 12px;
+  opacity: .75;
+}
+
+.build-badge a {
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
 }
