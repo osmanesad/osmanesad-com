@@ -395,3 +395,28 @@ footer{margin-top:70px;color:var(--muted);font-size:12px;}
   text-decoration: none;
   border-bottom: 1px solid currentColor;
 }
+
+.site-title{
+  display:flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;          /* ✅ taşmayı engeller */
+}
+
+.beta-badge{
+  font-size: 12px;
+  letter-spacing: .04em;
+  opacity: .5;
+  text-transform: lowercase;
+  white-space: nowrap;      /* desktop'ta tek satır */
+}
+
+/* Mobil: badge alt satıra geçsin */
+@media (max-width: 520px){
+  .beta-badge{
+    white-space: normal;    /* ✅ gerekirse satır kır */
+    font-size: 11px;
+    opacity: .45;
+  }
+}
+
