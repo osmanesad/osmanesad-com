@@ -17,61 +17,6 @@ function getVisitorId() {
   return id;
 }
 
-function getSlugStable() {
-  // Geçici: URL dosya adından slug (kendi sistemine göre düzenle)
-  const path = location.pathname.split("/").pop() || "home";
-  return path.replace(".html", "");
-}
-
-async function fetchLikes(slug) {
-  const { data, error } = await supabase
-    .from("post_likes")
-    .select("likes_count")
-    .eq("slug", slug)
-    .maybeSingle();
-  if (error) throw error;
-  return data?.likes_count ?? 0;
-}
-
-async function likeOnce(slug) {
-  const visitorId = getVisitorId();
-  console.log("slug:", slug, "visitor:", visitorId);
-
-  const { data, error } = await supabase.rpc("like_once", {
-    p_slug: slug,
-    p_visitor_id: visitorId,
-  });
-  if (error) throw error;
-  return data;
-}
-
-async function init() {
-  const slug = getSlugStable();
-
-  const likeBtn = document.getElementById("likeBtn");
-  const likeCountEl = document.getElementById("likeCount");
-  if (!likeBtn || !likeCountEl) {
-    console.warn("likeBtn/likeCount not found in DOM");
-    return;
-  }
-
-  likeCountEl.textContent = await fetchLikes(slug);
-
-  likeBtn.addEventListener("click", async () => {
-    likeBtn.disabled = true;
-    try {
-      const newCount = await likeOnce(slug);
-      likeCountEl.textContent = newCount;
-    } catch (e) {
-      console.error("Like failed:", e);
-    } finally {
-      likeBtn.disabled = false;
-    }
-  });
-}
-
-init();
-
 
 
 // Theme + font size
@@ -180,13 +125,16 @@ const Like={
     if(liked) return;
 
     try{
-      const { data, error } = await supabase.rpc("increment_like", { p_slug: this.postId });
+      const { data, error } = await supabase.rpc("like_once", {
+        p_slug: this.postId,
+        p_visitor_id: getVisitorId(),
+      });
       if(error) throw error;
       likeCountEl.textContent = String(data);
       localStorage.setItem(this.keyLiked(), '1');
       likeBtn.classList.add('liked');
     }catch(e){
-      console.warn("Like increment failed:", e);
+      console.warn("Like failed:", e);
     }
   }
 };
