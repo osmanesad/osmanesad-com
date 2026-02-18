@@ -1,4 +1,10 @@
-function fmtDate(iso){
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+const SUPABASE_URL = "###############################";
+const SUPABASE_ANON_KEY = "###############################";
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+function fmtDate(iso) {
   if(!iso) return '';
   try{
     const d = new Date(iso + 'T00:00:00');
@@ -77,17 +83,41 @@ function applyFilter(){
 document.getElementById('clear').addEventListener('click',()=>{ qEl.value=''; applyFilter(); qEl.focus(); });
 qEl.addEventListener('input', applyFilter);
 
-fetch('posts.json', { cache:'no-cache' })
-  .then(r=>r.json())
-  .then(data=>{
-    POSTS=data.sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+function stripHtml(html) {
+  const div = document.createElement("div");
+  div.innerHTML = html || "";
+  return (div.textContent || div.innerText || "").replace(/\s+/g, " ").trim();
+}
+
+async function loadArchive() {
+  try {
+    countEl.textContent = "Yükleniyor…";
+
+    const { data, error } = await supabase
+      .from("posts")
+      .select("id,title,date,content_html,status")
+      .eq("status", "published")
+      .order("date", { ascending: false });
+
+    if (error) throw error;
+
+    POSTS = (data || []).map(p => ({
+      id: p.id,
+      title: p.title,
+      date: p.date,
+      excerpt: stripHtml(p.content_html).slice(0, 160) // kısa özet
+    }));
+
     buildTimeline(POSTS);
     render(POSTS);
-  })
-  .catch((e)=>{
-    countEl.textContent='posts.json bulunamadı.';
+  } catch (e) {
     console.error(e);
-  });
+    countEl.textContent = "Arşiv yüklenemedi (Supabase hatası).";
+  }
+}
+
+loadArchive();
+
 
   // --- Scroll to top (Archive) ---
 const toTopBtn = document.getElementById('toTop');

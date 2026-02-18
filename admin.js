@@ -1,12 +1,30 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
 // TODO: burayı kendi Supabase bilgilerinizle doldurun
-const SUPABASE_URL = "https://zefzcmrsdvtbliguqedi.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_vGfAuyo4h18I-Pqmt25N0Q_OkEtlazb";
+const SUPABASE_URL = "###############################";
+const SUPABASE_ANON_KEY = "###############################";
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // UI
+
+const quill = new Quill("#editor", {
+  theme: "snow",
+  placeholder: "Yazını buraya yaz...",
+  modules: {
+    toolbar: [
+      [{ header: [1, 2, 3, false] }],
+      ["bold", "italic", "underline"],
+      [{ align: [] }],
+      [{ color: [] }, { background: [] }],
+      ["link", "blockquote", "code-block"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["clean"]
+    ]
+  }
+});
+
+
 const $ = (id) => document.getElementById(id);
 const elEmail = $("email");
 const elPass = $("password");
@@ -79,7 +97,13 @@ function currentFormPost(statusOverride) {
   const title = elTitle.value.trim();
   const date = elDate.value;
   const type = elType.value;
-  const content_html = elContent.value;
+  const content_html = quill.root.innerHTML;
+
+  if (!quill.getText().trim()) {
+    throw new Error("İçerik boş olamaz.");
+  }
+
+
 
   if (!isValidId(id)) throw new Error("id (slug) sadece harf/sayı/- içermeli.");
   if (!title) throw new Error("Başlık boş olamaz.");
@@ -158,7 +182,8 @@ function fillForm(p) {
   elTitle.value = p.title ?? "";
   elDate.value = (p.date ?? "").slice(0, 10);
   elType.value = p.type ?? "note";
-  elContent.value = p.content_html ?? "";
+  quill.root.innerHTML = p.content_html ?? "";
+
   setMsg(`Yüklendi: ${p.id} (${p.status})`);
 }
 
