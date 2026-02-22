@@ -5,7 +5,7 @@ const SUPABASE_ANON_KEY = "sb_publishable_vGfAuyo4h18I-Pqmt25N0Q_OkEtlazb";
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Sidebar\'da gösterilecek maksimum yazı sayısı
-const TOP_N = 7;
+const TOP_N = 9;
 
 function getVisitorId() {
   const key = "visitor_id_v1";
